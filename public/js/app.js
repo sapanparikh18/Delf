@@ -17,12 +17,130 @@ const firebaseConfig = {
 
 // Initialize Firebase (graceful fallback if not configured)
 let db = null;
+let auth = null;
 try {
   firebase.initializeApp(firebaseConfig);
   db = firebase.firestore();
+  auth = firebase.auth();
 } catch (e) {
   console.log('Firebase not configured — running in local-only mode');
 }
+
+// ============================================================
+// AUTH MODULE — Google Sign-In
+// ============================================================
+const Auth = {
+  currentUser: null,
+
+  init() {
+    if (!auth) return;
+
+    auth.onAuthStateChanged(async (user) => {
+      Auth.currentUser = user;
+      if (user) {
+        console.log('Signed in as:', user.displayName);
+        await Auth.loadFromFirestore(user);
+        Auth.updateUI(user);
+
+        // If not onboarded yet, pre-fill name from Google
+        if (!App.state.onboarded) {
+          const nameInput = document.getElementById('player-name');
+          if (nameInput && user.displayName) {
+            nameInput.value = user.displayName.split(' ')[0];
+            App.checkOnboardingReady();
+          }
+          App.startOnboarding();
+        } else {
+          App.updateHomeScreen();
+        }
+      }
+    });
+  },
+
+  async signInWithGoogle() {
+    if (!auth) {
+      // No Firebase — just proceed to onboarding
+      App.startOnboarding();
+      return;
+    }
+
+    try {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      await auth.signInWithPopup(provider);
+      // onAuthStateChanged handles the rest
+    } catch (error) {
+      if (error.code === 'auth/popup-closed-by-user') return;
+      if (error.code === 'auth/popup-blocked') {
+        // Fallback to redirect
+        const provider = new firebase.auth.GoogleAuthProvider();
+        await auth.signInWithRedirect(provider);
+        return;
+      }
+      console.error('Sign-in error:', error);
+      // Fallback: proceed without auth
+      App.startOnboarding();
+    }
+  },
+
+  async loadFromFirestore(user) {
+    if (!db || !user) return;
+
+    try {
+      const doc = await db.collection('users').doc(user.uid).get();
+      if (doc.exists) {
+        const cloudState = doc.data();
+        // Merge: take the one with more progress
+        if (cloudState.lessonsCompleted > (App.state.lessonsCompleted || 0)) {
+          App.state = { ...App.state, ...cloudState };
+          App.saveStateLocal();
+        }
+      }
+    } catch (e) {
+      console.log('Could not load from Firestore:', e.message);
+    }
+  },
+
+  async signOut() {
+    if (!auth) return;
+    try {
+      await auth.signOut();
+      Auth.currentUser = null;
+      Auth.updateUI(null);
+    } catch (e) {
+      console.error('Sign-out error:', e);
+    }
+  },
+
+  updateUI(user) {
+    // Update profile screen avatar
+    const avatarEl = document.getElementById('profile-avatar');
+    if (avatarEl) {
+      if (user && user.photoURL) {
+        avatarEl.innerHTML = `<img src="${user.photoURL}" alt="avatar" class="profile-avatar-img" referrerpolicy="no-referrer">`;
+      } else {
+        avatarEl.textContent = '🦊';
+      }
+    }
+
+    // Update profile auth section
+    const authEl = document.getElementById('profile-auth');
+    if (authEl) {
+      if (user) {
+        authEl.innerHTML = `
+          <div class="profile-auth-email">${user.email || ''}</div>
+          <button class="btn-signout" onclick="Auth.signOut()">Sign out</button>
+          <div class="auth-synced">☁️ Progress synced</div>
+        `;
+      } else {
+        authEl.innerHTML = `
+          <button class="btn-signout" onclick="Auth.signInWithGoogle()">Sign in to sync</button>
+        `;
+      }
+    }
+  }
+};
 
 // ============================================================
 // LESSON CONTENT — Chapter 1: Rémi arrives in Paris
@@ -847,6 +965,8 @@ const App = {
   // --- Initialization ---
   init() {
     this.loadState();
+    Auth.init();
+
     if (this.state.onboarded) {
       this.updateStreak();
       this.showScreen('home');
@@ -869,18 +989,19 @@ const App = {
     }
   },
 
-  saveState() {
+  saveStateLocal() {
     localStorage.setItem('petit-francais-state', JSON.stringify(this.state));
+  },
+
+  saveState() {
+    this.saveStateLocal();
     this.syncToFirestore();
   },
 
   async syncToFirestore() {
-    if (!db) return;
+    if (!db || !Auth.currentUser) return;
     try {
-      const user = firebase.auth().currentUser;
-      if (user) {
-        await db.collection('users').doc(user.uid).set(this.state, { merge: true });
-      }
+      await db.collection('users').doc(Auth.currentUser.uid).set(this.state, { merge: true });
     } catch (e) {
       // Silently fail — local storage is our source of truth
     }
@@ -1004,6 +1125,7 @@ const App = {
     document.getElementById('profile-stars').textContent = s.stars;
     document.getElementById('profile-coins').textContent = s.coins;
     document.getElementById('profile-lessons').textContent = s.lessonsCompleted;
+    Auth.updateUI(Auth.currentUser);
 
     const grid = document.getElementById('badges-grid');
     grid.innerHTML = '';
