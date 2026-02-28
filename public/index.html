@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#F37F94">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Petit Français">
+  <meta name="description" content="Learn French with Rémi the fox — a fun, story-driven app for kids preparing for DELF A1">
+
+  <title>Le Petit Français</title>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/images/icons/icon.svg">
+  <link rel="apple-touch-icon" href="/images/icons/icon-192.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <!-- ========== SPLASH SCREEN ========== -->
+  <div class="screen splash active" id="screen-splash">
+    <div class="splash-mascot" id="splash-mascot">
+      <svg viewBox="0 0 200 200" width="180" height="180">
+        <g transform="translate(100,105)">
+          <!-- Ears -->
+          <polygon points="-55,-95 -35,-20 -15,-65" fill="#FFF5F2" opacity="0.9"/>
+          <polygon points="55,-95 35,-20 15,-65" fill="#FFF5F2" opacity="0.9"/>
+          <polygon points="-50,-85 -35,-35 -22,-65" fill="#F37F94" opacity="0.4"/>
+          <polygon points="50,-85 35,-35 22,-65" fill="#F37F94" opacity="0.4"/>
+          <!-- Head -->
+          <ellipse cx="0" cy="0" rx="62" ry="55" fill="#FFF5F2"/>
+          <!-- Eyes -->
+          <circle cx="-20" cy="-10" r="9" fill="#2D2926"/>
+          <circle cx="20" cy="-10" r="9" fill="#2D2926"/>
+          <circle cx="-17" cy="-13" r="3.5" fill="#FFF"/>
+          <circle cx="23" cy="-13" r="3.5" fill="#FFF"/>
+          <!-- Nose -->
+          <ellipse cx="0" cy="10" rx="8" ry="6" fill="#2D2926"/>
+          <!-- Mouth -->
+          <path d="M-10,18 Q0,28 10,18" fill="none" stroke="#2D2926" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Cheeks -->
+          <circle cx="-38" cy="5" r="10" fill="#F37F94" opacity="0.25"/>
+          <circle cx="38" cy="5" r="10" fill="#F37F94" opacity="0.25"/>
+        </g>
+        <!-- Beret -->
+        <g transform="translate(100,105)">
+          <ellipse cx="5" cy="-58" rx="38" ry="12" fill="#F37F94"/>
+          <path d="M-30,-60 Q-20,-85 15,-80 Q40,-75 40,-58" fill="#F37F94"/>
+          <circle cx="10" cy="-82" r="5" fill="#d9566e"/>
+        </g>
+      </svg>
+    </div>
+    <h1 class="splash-title">Le Petit Français</h1>
+    <p class="splash-subtitle">Apprends avec Rémi !</p>
+    <p class="splash-tagline">A fun, story-driven French adventure for kids preparing for the DELF A1 exam</p>
+    <button class="btn btn-primary btn-large" onclick="App.startOnboarding()">
+      C'est parti ! 🦊
+    </button>
+  </div>
+
+  <!-- ========== ONBOARDING SCREEN ========== -->
+  <div class="screen onboarding" id="screen-onboarding">
+    <div class="onboarding-header">
+      <div class="onboarding-step">Step 1 of 2</div>
+      <h2>Bonjour ! Who's playing?</h2>
+    </div>
+
+    <div class="mascot-speech">
+      Salut ! I'm <strong>Rémi</strong> the fox 🦊<br>
+      I'll be your guide through Paris as we learn French together. Tell me about yourself !
+    </div>
+
+    <div class="name-input-group">
+      <label for="player-name">Your name</label>
+      <input type="text" id="player-name" class="name-input" placeholder="e.g. Sophie" maxlength="20" autocomplete="off">
+    </div>
+
+    <div class="age-selector">
+      <div class="age-card" data-age="young" onclick="App.selectAge('young')">
+        <div class="age-card-emoji">🧒</div>
+        <div class="age-card-label">8 – 10</div>
+        <div class="age-card-desc">More games!</div>
+      </div>
+      <div class="age-card" data-age="older" onclick="App.selectAge('older')">
+        <div class="age-card-emoji">🧑</div>
+        <div class="age-card-label">11 – 14</div>
+        <div class="age-card-desc">More challenges!</div>
+      </div>
+    </div>
+
+    <button class="btn btn-filled btn-block" id="onboarding-next" onclick="App.finishOnboarding()" disabled>
+      Let's go! →
+    </button>
+  </div>
+
+  <!-- ========== HOME SCREEN ========== -->
+  <div class="screen home" id="screen-home">
+    <div class="home-header">
+      <div class="home-top-row">
+        <div class="home-greeting" id="home-greeting">Bonjour !</div>
+        <div class="home-streak">🔥 <span id="streak-count">0</span></div>
+      </div>
+      <div class="home-stats">
+        <div class="stat-pill">⭐ <span id="total-stars">0</span></div>
+        <div class="stat-pill">🪙 <span id="total-coins">0</span></div>
+      </div>
+    </div>
+
+    <div class="chapter-banner">
+      <div class="chapter-label">Chapter 1</div>
+      <div class="chapter-title" id="chapter-title">Rémi arrives in Paris</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="chapter-progress" style="width: 0%"></div>
+      </div>
+      <div class="progress-text" id="chapter-progress-text">0 / 16 lessons</div>
+    </div>
+
+    <div class="worlds-section">
+      <div class="worlds-label">Choose a world</div>
+      <div class="worlds-grid">
+        <div class="world-card" data-world="listening" onclick="App.openWorld('listening')">
+          <div class="world-icon">🎧</div>
+          <div class="world-name">Listening Lane</div>
+          <div class="world-progress-text">0 / 4</div>
+          <div class="world-mini-bar">
+            <div class="world-mini-fill" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="world-card" data-world="reading" onclick="App.openWorld('reading')">
+          <div class="world-icon">📖</div>
+          <div class="world-name">Reading Garden</div>
+          <div class="world-progress-text">0 / 4</div>
+          <div class="world-mini-bar">
+            <div class="world-mini-fill" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="world-card" data-world="writing" onclick="App.openWorld('writing')">
+          <div class="world-icon">✏️</div>
+          <div class="world-name">Writing Workshop</div>
+          <div class="world-progress-text">0 / 4</div>
+          <div class="world-mini-bar">
+            <div class="world-mini-fill" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="world-card" data-world="speaking" onclick="App.openWorld('speaking')">
+          <div class="world-icon">🎤</div>
+          <div class="world-name">Speaking Stage</div>
+          <div class="world-progress-text">0 / 4</div>
+          <div class="world-mini-bar">
+            <div class="world-mini-fill" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="daily-tip">
+      <div class="daily-tip-icon">💡</div>
+      <div class="daily-tip-text">
+        <strong>Tip from Rémi:</strong> "Bonjour" is the most important word in French! It means "Hello" — always say it when you meet someone.
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== LESSONS SCREEN ========== -->
+  <div class="screen lessons" id="screen-lessons">
+    <div class="lessons-header">
+      <button class="back-btn" onclick="App.goHome()">←</button>
+      <div class="lessons-world-info">
+        <div class="lessons-world-name" id="lessons-world-name">Listening Lane</div>
+        <div class="lessons-world-desc" id="lessons-world-desc">Sounds of Paris</div>
+      </div>
+    </div>
+    <div class="lessons-list" id="lessons-list">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+
+  <!-- ========== ACTIVITY SCREEN ========== -->
+  <div class="screen activity" id="screen-activity">
+    <div class="activity-top">
+      <button class="back-btn" onclick="App.exitActivity()">✕</button>
+      <div class="activity-progress">
+        <div class="activity-progress-fill" id="activity-progress-fill" style="width: 0%"></div>
+      </div>
+      <div class="activity-count" id="activity-count">1 / 5</div>
+    </div>
+    <div class="activity-body" id="activity-body">
+      <!-- Filled by JS per question -->
+    </div>
+  </div>
+
+  <!-- ========== RESULT SCREEN ========== -->
+  <div class="screen result" id="screen-result">
+    <div class="result-stars" id="result-stars"></div>
+    <h2 class="result-title" id="result-title">Magnifique !</h2>
+    <p class="result-subtitle" id="result-subtitle">You completed the lesson!</p>
+    <div class="result-stats">
+      <div class="result-stat">
+        <div class="result-stat-value" id="result-correct">0</div>
+        <div class="result-stat-label">Correct</div>
+      </div>
+      <div class="result-stat">
+        <div class="result-stat-value" id="result-coins">+0</div>
+        <div class="result-stat-label">Coins</div>
+      </div>
+    </div>
+    <div class="result-actions">
+      <button class="btn btn-filled btn-block" onclick="App.nextLesson()">Next lesson →</button>
+      <button class="btn btn-ghost btn-block" style="color:var(--text-muted)" onclick="App.goHome()">Back to map</button>
+    </div>
+  </div>
+
+  <!-- ========== PROFILE SCREEN ========== -->
+  <div class="screen profile" id="screen-profile">
+    <div class="profile-header">
+      <div class="profile-avatar" id="profile-avatar">🦊</div>
+      <div class="profile-name" id="profile-name">Player</div>
+      <div class="profile-level">Explorer · Chapter 1</div>
+      <div class="profile-stats-row">
+        <div class="profile-stat">
+          <div class="profile-stat-val" id="profile-stars">0</div>
+          <div class="profile-stat-lbl">Stars</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-val" id="profile-coins">0</div>
+          <div class="profile-stat-lbl">Coins</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-val" id="profile-lessons">0</div>
+          <div class="profile-stat-lbl">Lessons</div>
+        </div>
+      </div>
+    </div>
+    <div class="badges-section">
+      <div class="badges-title">Badges</div>
+      <div class="badges-grid" id="badges-grid">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== BOTTOM NAV ========== -->
+  <nav class="bottom-nav hidden" id="bottom-nav">
+    <button class="nav-item active" data-nav="home" onclick="App.goHome()">
+      <span class="nav-item-icon">🗺️</span>
+      <span class="nav-item-label">Map</span>
+    </button>
+    <button class="nav-item" data-nav="profile" onclick="App.goProfile()">
+      <span class="nav-item-icon">🦊</span>
+      <span class="nav-item-label">Rémi</span>
+    </button>
+  </nav>
+
+</div>
+
+<!-- Confetti container -->
+<div class="confetti-container hidden" id="confetti"></div>
+
+<!-- Firebase SDK (compat for simplicity) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+<!-- App -->
+<script src="/js/app.js"></script>
+
+<!-- Service Worker Registration -->
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
+</script>
+
+</body>
+</html>
