@@ -7,12 +7,13 @@
 // --- Firebase Config ---
 // Replace these values with your actual Firebase project config
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "le-petit-francais.firebaseapp.com",
-  projectId: "le-petit-francais",
-  storageBucket: "le-petit-francais.appspot.com",
-  messagingSenderId: "000000000000",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAj_o7yP-WuqeGgjhThNue8Sy0AAlXqlFo",
+  authDomain: "delf-7b02e.firebaseapp.com",
+  projectId: "delf-7b02e",
+  storageBucket: "delf-7b02e.firebasestorage.app",
+  messagingSenderId: "555801520784",
+  appId: "1:555801520784:web:09c2c4a48ebf4e03a9c615",
+  measurementId: "G-83RK8VK8KY"
 };
 
 // Initialize Firebase (graceful fallback if not configured)
