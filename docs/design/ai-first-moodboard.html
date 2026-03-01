@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Petit Fran&ccedil;ais — AI-First Mood Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --font: 'Nunito', -apple-system, 'Helvetica Neue', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font);
+    background: #F0EDEA;
+    color: #2D2926;
+    line-height: 1.5;
+  }
+
+  /* ── Header ── */
+  .page-header {
+    text-align: center;
+    padding: 60px 24px 40px;
+    background: #2D2926;
+    color: #fff;
+  }
+  .page-header h1 {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .page-header p {
+    font-size: 16px;
+    opacity: 0.7;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .page-header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-top: 12px;
+    font-weight: 700;
+  }
+
+  /* ── Palette Sections ── */
+  .palette-section {
+    max-width: 1400px;
+    margin: 48px auto;
+    padding: 0 24px;
+  }
+  .palette-header-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .palette-letter {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .palette-meta h2 {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .palette-meta .tagline {
+    font-size: 15px;
+    color: #666;
+  }
+  .palette-meta .wada-ref {
+    font-size: 12px;
+    color: #999;
+    background: #eee;
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    margin-top: 4px;
+  }
+
+  /* ── Mood Board Grid ── */
+  .mood-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 900px) {
+    .mood-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── Color Swatch Strip ── */
+  .swatch-strip {
+    display: flex;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 100px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+  .swatch-strip .swatch {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 12px;
+    transition: flex 0.3s ease;
+    cursor: default;
+  }
+  .swatch-strip .swatch:hover { flex: 1.5; }
+  .swatch-strip .swatch .name {
+    font-size: 12px;
+    font-weight: 700;
+    opacity: 0.95;
+  }
+  .swatch-strip .swatch .hex {
+    font-size: 10px;
+    opacity: 0.7;
+    font-weight: 600;
+  }
+
+  /* ── Mood Keywords ── */
+  .mood-keywords {
+    background: #fff;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .mood-keywords h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    margin-bottom: 12px;
+  }
+  .mood-keywords .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .mood-keywords .kw {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  /* ── Phone Mockup ── */
+  .phone-frame {
+    width: 300px;
+    margin: 0 auto;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25), inset 0 0 0 2px rgba(255,255,255,0.1);
+  }
+  .phone-screen {
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+  }
+  .phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 28px;
+    background: #1a1a1a;
+    border-radius: 0 0 18px 18px;
+    z-index: 10;
+  }
+  .phone-status-bar {
+    height: 50px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 20px 6px;
+    font-size: 12px;
+    font-weight: 700;
+    position: relative;
+    z-index: 5;
+  }
+  .phone-body {
+    min-height: 540px;
+    padding: 8px 16px 16px;
+    position: relative;
+  }
+  .phone-bottom-nav {
+    display: flex;
+    height: 56px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+  }
+  .phone-bottom-nav .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    font-size: 10px;
+    font-weight: 700;
+    opacity: 0.4;
+  }
+  .phone-bottom-nav .nav-item.active { opacity: 1; }
+  .phone-bottom-nav .nav-item svg { width: 22px; height: 22px; }
+
+  .phone-home-indicator {
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .phone-home-indicator div {
+    width: 120px;
+    height: 4px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 3px;
+  }
+
+  /* ── Screen-specific styles ── */
+  .greeting {
+    font-size: 22px;
+    font-weight: 800;
+    margin-top: 4px;
+  }
+  .greeting-sub {
+    font-size: 14px;
+    opacity: 0.7;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .delf-meter {
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(8px);
+  }
+  .delf-meter .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 800;
+    opacity: 0.6;
+    margin-bottom: 8px;
+  }
+  .delf-meter .bar-bg {
+    height: 10px;
+    border-radius: 5px;
+    background: rgba(0,0,0,0.08);
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .delf-meter .bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+  }
+  .delf-meter .score {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .talk-btn {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto 10px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.2s;
+    position: relative;
+  }
+  .talk-btn:hover { transform: scale(1.05); }
+  .talk-btn svg { width: 36px; height: 36px; fill: #fff; }
+  .talk-btn-label {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+
+  .pulse-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid currentColor;
+    opacity: 0.3;
+    animation: pulse 2s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.3; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+
+  .mode-card {
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(4px);
+  }
+  .mode-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .mode-icon svg { width: 22px; height: 22px; fill: #fff; }
+  .mode-info .mode-name { font-size: 14px; font-weight: 800; }
+  .mode-info .mode-desc { font-size: 11px; opacity: 0.6; font-weight: 600; }
+
+  /* ── Conversation Screen ── */
+  .conv-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .conv-msg {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 18px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .conv-msg.ai {
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+  .conv-msg.user {
+    align-self: flex-end;
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+  .conv-feedback {
+    font-size: 11px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin-top: -4px;
+    align-self: flex-start;
+    font-weight: 600;
+  }
+  .waveform {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 40px;
+    margin: 12px 0;
+  }
+  .waveform .bar {
+    width: 4px;
+    border-radius: 2px;
+    animation: waveAnim 0.8s ease-in-out infinite alternate;
+  }
+  @keyframes waveAnim {
+    0% { height: 8px; }
+    100% { height: 30px; }
+  }
+
+  /* ── Mockup Row ── */
+  .mockup-row {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 20px 0;
+  }
+  .mockup-col {
+    text-align: center;
+  }
+  .mockup-col .screen-label {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    margin-bottom: 12px;
+  }
+
+  /* ── Notes ── */
+  .palette-notes {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    margin-top: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 900px) {
+    .palette-notes { grid-template-columns: 1fr; }
+  }
+  .note-block h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    margin-bottom: 8px;
+  }
+  .note-block p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+  }
+
+  /* ── Divider ── */
+  .section-divider {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .section-divider hr {
+    border: none;
+    border-top: 2px dashed #ddd;
+  }
+
+  /* ── Skill Pills ── */
+  .skill-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .skill-pill {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Progress Screen ── */
+  .skill-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .skill-row .skill-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .skill-row .skill-icon svg { width: 16px; height: 16px; fill: #fff; }
+  .skill-row .skill-bar-wrap { flex: 1; }
+  .skill-row .skill-label {
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+  }
+  .skill-row .skill-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .skill-row .skill-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+  }
+
+  /* ── Streak Badge ── */
+  .streak-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 800;
+    background: rgba(255,255,255,0.8);
+    margin-bottom: 16px;
+  }
+
+  /* ── Footer ── */
+  .page-footer {
+    text-align: center;
+    padding: 40px 24px 60px;
+    color: #999;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- HEADER -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="page-header">
+  <h1>Le Petit Fran&ccedil;ais</h1>
+  <p>AI-First Mood Board &mdash; 4 palette options for the Gemini-powered French tutor</p>
+  <div class="badge">Discovery Phase &bull; March 2026</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PALETTE A: PARIS SUNSHINE -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="palette-section" id="sunshine">
+  <div class="palette-header-bar">
+    <div class="palette-letter" style="background: #FCB315; color: #2D2926;">A</div>
+    <div class="palette-meta">
+      <h2>Paris Sunshine</h2>
+      <div class="tagline">Warm &amp; Energetic &mdash; like a sunny day in Paris</div>
+      <span class="wada-ref">Sanzo Wada #257 + #250</span>
+    </div>
+  </div>
+
+  <!-- Swatches + Mood -->
+  <div class="mood-grid">
+    <div>
+      <div class="swatch-strip">
+        <div class="swatch" style="background:#FCB315;"><span class="name" style="color:#2D2926;">Orange Yellow</span><span class="hex" style="color:#2D2926;">#FCB315</span></div>
+        <div class="swatch" style="background:#E31F26;"><span class="name" style="color:#fff;">Spectrum Red</span><span class="hex" style="color:#fff;">#E31F26</span></div>
+        <div class="swatch" style="background:#00B49B;"><span class="name" style="color:#fff;">Sea Green</span><span class="hex" style="color:#fff;">#00B49B</span></div>
+        <div class="swatch" style="background:#A36AA5;"><span class="name" style="color:#fff;">Aconite Violet</span><span class="hex" style="color:#fff;">#A36AA5</span></div>
+      </div>
+      <div style="display:flex; gap:6px; margin-top:12px;">
+        <div style="flex:1; height:40px; border-radius:10px; background:#FFF8ED; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#2D2926; border: 1px solid #eee;">BG #FFF8ED</div>
+        <div style="flex:1; height:40px; border-radius:10px; background:#2D2926; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#fff;">Text #2D2926</div>
+      </div>
+    </div>
+    <div class="mood-keywords">
+      <h3>Mood &amp; Vibe</h3>
+      <div class="keywords">
+        <span class="kw" style="background:#FCB31520; color:#b8850a;">Cheerful</span>
+        <span class="kw" style="background:#E31F2620; color:#c01920;">Bold</span>
+        <span class="kw" style="background:#00B49B20; color:#008a77;">Adventurous</span>
+        <span class="kw" style="background:#A36AA520; color:#8a5690;">Optimistic</span>
+        <span class="kw" style="background:#FCB31520; color:#b8850a;">Warm</span>
+        <span class="kw" style="background:#E31F2620; color:#c01920;">Energetic</span>
+        <span class="kw" style="background:#00B49B20; color:#008a77;">Sunny</span>
+        <span class="kw" style="background:#A36AA520; color:#8a5690;">Playful</span>
+      </div>
+      <div class="skill-pills">
+        <span class="skill-pill" style="background:#00B49B; color:#fff;">Listening</span>
+        <span class="skill-pill" style="background:#FCB315; color:#2D2926;">Reading</span>
+        <span class="skill-pill" style="background:#A36AA5; color:#fff;">Writing</span>
+        <span class="skill-pill" style="background:#E31F26; color:#fff;">Speaking</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phone Mockups -->
+  <div class="mockup-row">
+    <!-- HOME SCREEN -->
+    <div class="mockup-col">
+      <div class="screen-label">Home Hub</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar" style="background: #FFF8ED; color: #2D2926;">
+            <span>9:41</span><span style="opacity:0.5">LPF</span>
+          </div>
+          <div class="phone-body" style="background: #FFF8ED;">
+            <div class="streak-badge" style="color: #E31F26;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#E31F26"><path d="M12 23c-4.97 0-9-3.13-9-7 0-2.38 1.34-4.33 3.5-5.5-.28 1.5.2 3 1.5 4 0-4 3-7 6-9 .5 2 1.5 3.5 3 4.5C19 11.5 21 13.5 21 16c0 3.87-4.03 7-9 7z"/></svg>
+              12 day streak
+            </div>
+            <div class="greeting" style="color: #2D2926;">Bonjour, Emma!</div>
+            <div class="greeting-sub" style="color: #6b6462;">Ready to practice French?</div>
+
+            <div class="delf-meter" style="border: 1px solid rgba(252,179,21,0.3);">
+              <div class="label" style="color: #b8850a;">DELF A1 Readiness</div>
+              <div class="bar-bg"><div class="bar-fill" style="width: 62%; background: linear-gradient(90deg, #FCB315, #E31F26);"></div></div>
+              <div class="score" style="color: #2D2926;">62 / 100</div>
+            </div>
+
+            <div class="talk-btn" style="background: #E31F26;">
+              <div class="pulse-ring" style="color: #E31F26;"></div>
+              <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 7h2v-2c3.93-.5 7-3.88 7-7.95h-2c0 3.31-2.69 6-6 6s-6-2.69-6-6H4c0 4.07 3.07 7.45 7 7.95V21z"/></svg>
+            </div>
+            <div class="talk-btn-label" style="color: #E31F26;">Talk to R&eacute;mi</div>
+
+            <div class="mode-card">
+              <div class="mode-icon" style="background: #00B49B;">
+                <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              </div>
+              <div class="mode-info">
+                <div class="mode-name" style="color: #2D2926;">Listen &amp; Respond</div>
+                <div class="mode-desc">Hear French, tap or speak answers</div>
+              </div>
+            </div>
+            <div class="mode-card">
+              <div class="mode-icon" style="background: #A36AA5;">
+                <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+              </div>
+              <div class="mode-info">
+                <div class="mode-name" style="color: #2D2926;">Writing Exercises</div>
+                <div class="mode-desc">Forms, postcards &amp; messages</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-bottom-nav">
+            <div class="nav-item active" style="color: #FCB315;">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              <span>Home</span>
+            </div>
+            <div class="nav-item" style="color: #888;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+              <span>Talk</span>
+            </div>
+            <div class="nav-item" style="color: #888;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              <span>Progress</span>
+            </div>
+            <div class="nav-item" style="color: #888;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span>Profile</span>
+            </div>
+          </div>
+          <div class="phone-home-indicator" style="background: #FFF8ED;"><div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONVERSATION SCREEN -->
+    <div class="mockup-col">
+      <div class="screen-label">AI Conversation</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar" style="background: #FCB315; color: #2D2926;">
+            <span style="font-size:11px;">&larr; Back</span><span style="font-weight:800;">Conversation</span><span style="opacity:0.5; font-size:11px;">2:34</span>
+          </div>
+          <div class="phone-body" style="background: #FFF8ED;">
+            <div class="conv-messages">
+              <div class="conv-msg ai" style="background: #fff; color: #2D2926;">
+                Bonjour Emma! Comment tu t'appelles? &#x1F60A;
+              </div>
+              <div class="conv-msg user" style="background: #E31F26;">
+                Je m'appelle Emma!
+              </div>
+              <div class="conv-msg ai" style="background: #fff; color: #2D2926;">
+                Tr&egrave;s bien! Et tu as quel &acirc;ge?
+              </div>
+              <div class="conv-msg user" style="background: #E31F26;">
+                J'ai dix ans.
+              </div>
+              <div class="conv-feedback" style="background: #00B49B20; color: #008a77;">
+                &#10003; Great pronunciation! &quot;dix&quot; = perfect
+              </div>
+              <div class="conv-msg ai" style="background: #fff; color: #2D2926;">
+                Super! Tu habites o&ugrave;?
+              </div>
+            </div>
+
+            <div class="waveform">
+              <div class="bar" style="background:#FCB315; animation-delay:0s; height:12px;"></div>
+              <div class="bar" style="background:#E31F26; animation-delay:0.1s; height:20px;"></div>
+              <div class="bar" style="background:#00B49B; animation-delay:0.2s; height:28px;"></div>
+              <div class="bar" style="background:#A36AA5; animation-delay:0.3s; height:16px;"></div>
+              <div class="bar" style="background:#FCB315; animation-delay:0.4s; height:24px;"></div>
+              <div class="bar" style="background:#E31F26; animation-delay:0.15s; height:10px;"></div>
+              <div class="bar" style="background:#00B49B; animation-delay:0.25s; height:18px;"></div>
+              <div class="bar" style="background:#A36AA5; animation-delay:0.35s; height:26px;"></div>
+            </div>
+
+            <div style="text-align:center;">
+              <div class="talk-btn" style="background: #E31F26; width:64px; height:64px;">
+                <svg viewBox="0 0 24 24" style="width:28px; height:28px;"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+              </div>
+              <div style="font-size:11px; color:#999; font-weight:600; margin-top:4px;">Tap to speak</div>
+            </div>
+
+            <div style="display:flex; gap:6px; margin-top:12px; justify-content:center;">
+              <span class="skill-pill" style="background:#00B49B20; color:#008a77;">Listening +2</span>
+              <span class="skill-pill" style="background:#E31F2620; color:#c01920;">Speaking +3</span>
+            </div>
+          </div>
+          <div class="phone-home-indicator" style="background: #FFF8ED;"><div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRESS SCREEN -->
+    <div class="mockup-col">
+      <div class="screen-label">DELF Progress</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar" style="background: #FFF8ED; color: #2D2926;">
+            <span>9:41</span><span style="font-weight:800;">Progress</span><span></span>
+          </div>
+          <div class="phone-body" style="background: #FFF8ED;">
+            <div style="text-align:center; margin-bottom:20px;">
+              <div style="width:120px; height:120px; border-radius:50%; border:8px solid #FCB315; margin:0 auto 8px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fff;">
+                <div style="font-size:32px; font-weight:900; color:#2D2926;">62</div>
+                <div style="font-size:10px; font-weight:700; color:#999;">/ 100</div>
+              </div>
+              <div style="font-size:14px; font-weight:800; color:#2D2926;">DELF A1 Readiness</div>
+              <div style="font-size:11px; color:#999; font-weight:600;">Keep going! You're making progress.</div>
+            </div>
+
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#00B49B;">
+                <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Listening</span><span style="color:#00B49B;">18/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:72%; background:#00B49B;"></div></div>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#FCB315;">
+                <svg viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Reading</span><span style="color:#b8850a;">15/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:60%; background:#FCB315;"></div></div>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#A36AA5;">
+                <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Writing</span><span style="color:#A36AA5;">14/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:56%; background:#A36AA5;"></div></div>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#E31F26;">
+                <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 7h2v-2c3.93-.5 7-3.88 7-7.95h-2c0 3.31-2.69 6-6 6s-6-2.69-6-6H4c0 4.07 3.07 7.45 7 7.95V21z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Speaking</span><span style="color:#E31F26;">15/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:60%; background:#E31F26;"></div></div>
+              </div>
+            </div>
+
+            <div style="background:#fff; border-radius:14px; padding:14px; margin-top:16px;">
+              <div style="font-size:12px; font-weight:800; color:#2D2926; margin-bottom:6px;">This week</div>
+              <div style="display:flex; gap:4px; align-items:flex-end; height:60px;">
+                <div style="flex:1; background:#FCB31540; border-radius:4px; height:40%;"></div>
+                <div style="flex:1; background:#FCB31540; border-radius:4px; height:60%;"></div>
+                <div style="flex:1; background:#FCB31540; border-radius:4px; height:80%;"></div>
+                <div style="flex:1; background:#FCB31540; border-radius:4px; height:50%;"></div>
+                <div style="flex:1; background:#FCB31540; border-radius:4px; height:90%;"></div>
+                <div style="flex:1; background:#FCB31540; border-radius:4px; height:70%;"></div>
+                <div style="flex:1; background:#FCB315; border-radius:4px; height:100%;"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:9px; color:#999; font-weight:700; margin-top:4px;">
+                <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span style="color:#FCB315;">S</span>
+              </div>
+            </div>
+          </div>
+          <div class="phone-bottom-nav">
+            <div class="nav-item" style="color: #888;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              <span>Home</span>
+            </div>
+            <div class="nav-item" style="color: #888;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+              <span>Talk</span>
+            </div>
+            <div class="nav-item active" style="color: #FCB315;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              <span>Progress</span>
+            </div>
+            <div class="nav-item" style="color: #888;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span>Profile</span>
+            </div>
+          </div>
+          <div class="phone-home-indicator" style="background: #FFF8ED;"><div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-notes">
+    <div class="note-block">
+      <h4>Best for</h4>
+      <p>Ages 8&ndash;18. Broadest appeal. The warm yellow primary evokes optimism and adventure. High energy without overwhelming. Distinctive vs competitors (Duolingo=green).</p>
+    </div>
+    <div class="note-block">
+      <h4>AI Personality Match</h4>
+      <p>Warm, encouraging, enthusiastic tutor. The sunny palette makes the AI feel like a friendly, upbeat conversation partner &mdash; perfect for a patient friend vibe.</p>
+    </div>
+    <div class="note-block">
+      <h4>Typography</h4>
+      <p>Nunito 800 for headings. High contrast text (#2D2926) on warm cream (#FFF8ED). Yellow primary works well as accent but needs darker shades for text buttons.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><hr></div>
+
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PALETTE B: JARDIN DE REMI -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="palette-section" id="jardin">
+  <div class="palette-header-bar">
+    <div class="palette-letter" style="background: #006EB8;">B</div>
+    <div class="palette-meta">
+      <h2>Jardin de R&eacute;mi</h2>
+      <div class="tagline">Fresh &amp; Natural &mdash; like exploring a French garden</div>
+      <span class="wada-ref">Sanzo Wada #333 + #306</span>
+    </div>
+  </div>
+
+  <div class="mood-grid">
+    <div>
+      <div class="swatch-strip">
+        <div class="swatch" style="background:#006EB8;"><span class="name" style="color:#fff;">Blue</span><span class="hex" style="color:#fff;">#006EB8</span></div>
+        <div class="swatch" style="background:#F8ED43;"><span class="name" style="color:#253122;">Lemon Yellow</span><span class="hex" style="color:#253122;">#F8ED43</span></div>
+        <div class="swatch" style="background:#96D1AA;"><span class="name" style="color:#253122;">Cobalt Green</span><span class="hex" style="color:#253122;">#96D1AA</span></div>
+        <div class="swatch" style="background:#AE5224;"><span class="name" style="color:#fff;">Burnt Sienna</span><span class="hex" style="color:#fff;">#AE5224</span></div>
+      </div>
+      <div style="display:flex; gap:6px; margin-top:12px;">
+        <div style="flex:1; height:40px; border-radius:10px; background:#F5F8F0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#253122; border: 1px solid #e0e8d8;">BG #F5F8F0</div>
+        <div style="flex:1; height:40px; border-radius:10px; background:#253122; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#fff;">Text #253122</div>
+      </div>
+    </div>
+    <div class="mood-keywords">
+      <h3>Mood &amp; Vibe</h3>
+      <div class="keywords">
+        <span class="kw" style="background:#006EB820; color:#005a96;">Calm</span>
+        <span class="kw" style="background:#96D1AA30; color:#4a9068;">Natural</span>
+        <span class="kw" style="background:#F8ED4320; color:#a09420;">Fresh</span>
+        <span class="kw" style="background:#AE522420; color:#8a4018;">Grounded</span>
+        <span class="kw" style="background:#006EB820; color:#005a96;">Trustworthy</span>
+        <span class="kw" style="background:#96D1AA30; color:#4a9068;">Focused</span>
+        <span class="kw" style="background:#F8ED4320; color:#a09420;">Bright</span>
+        <span class="kw" style="background:#AE522420; color:#8a4018;">Earthy</span>
+      </div>
+      <div class="skill-pills">
+        <span class="skill-pill" style="background:#006EB8; color:#fff;">Listening</span>
+        <span class="skill-pill" style="background:#96D1AA; color:#253122;">Reading</span>
+        <span class="skill-pill" style="background:#AE5224; color:#fff;">Writing</span>
+        <span class="skill-pill" style="background:#F8ED43; color:#253122;">Speaking</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup-row">
+    <!-- HOME SCREEN -->
+    <div class="mockup-col">
+      <div class="screen-label">Home Hub</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar" style="background: #F5F8F0; color: #253122;">
+            <span>9:41</span><span style="opacity:0.5">LPF</span>
+          </div>
+          <div class="phone-body" style="background: #F5F8F0;">
+            <div class="streak-badge" style="color: #AE5224;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#AE5224"><path d="M12 23c-4.97 0-9-3.13-9-7 0-2.38 1.34-4.33 3.5-5.5-.28 1.5.2 3 1.5 4 0-4 3-7 6-9 .5 2 1.5 3.5 3 4.5C19 11.5 21 13.5 21 16c0 3.87-4.03 7-9 7z"/></svg>
+              12 day streak
+            </div>
+            <div class="greeting" style="color: #253122;">Bonjour, Emma!</div>
+            <div class="greeting-sub" style="color: #6b7b62;">Ready to practice French?</div>
+
+            <div class="delf-meter" style="border: 1px solid rgba(0,110,184,0.2);">
+              <div class="label" style="color: #006EB8;">DELF A1 Readiness</div>
+              <div class="bar-bg"><div class="bar-fill" style="width: 62%; background: linear-gradient(90deg, #96D1AA, #006EB8);"></div></div>
+              <div class="score" style="color: #253122;">62 / 100</div>
+            </div>
+
+            <div class="talk-btn" style="background: #006EB8;">
+              <div class="pulse-ring" style="color: #006EB8;"></div>
+              <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 7h2v-2c3.93-.5 7-3.88 7-7.95h-2c0 3.31-2.69 6-6 6s-6-2.69-6-6H4c0 4.07 3.07 7.45 7 7.95V21z"/></svg>
+            </div>
+            <div class="talk-btn-label" style="color: #006EB8;">Talk to R&eacute;mi</div>
+
+            <div class="mode-card">
+              <div class="mode-icon" style="background: #96D1AA;">
+                <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              </div>
+              <div class="mode-info">
+                <div class="mode-name" style="color: #253122;">Listen &amp; Respond</div>
+                <div class="mode-desc">Hear French, tap or speak answers</div>
+              </div>
+            </div>
+            <div class="mode-card">
+              <div class="mode-icon" style="background: #AE5224;">
+                <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+              </div>
+              <div class="mode-info">
+                <div class="mode-name" style="color: #253122;">Writing Exercises</div>
+                <div class="mode-desc">Forms, postcards &amp; messages</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-bottom-nav">
+            <div class="nav-item active" style="color: #006EB8;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              <span>Home</span>
+            </div>
+            <div class="nav-item" style="color: #aaa;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+              <span>Talk</span>
+            </div>
+            <div class="nav-item" style="color: #aaa;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              <span>Progress</span>
+            </div>
+            <div class="nav-item" style="color: #aaa;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span>Profile</span>
+            </div>
+          </div>
+          <div class="phone-home-indicator" style="background: #F5F8F0;"><div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONVERSATION SCREEN -->
+    <div class="mockup-col">
+      <div class="screen-label">AI Conversation</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar" style="background: #006EB8; color: #fff;">
+            <span style="font-size:11px;">&larr; Back</span><span style="font-weight:800;">Conversation</span><span style="opacity:0.5; font-size:11px;">2:34</span>
+          </div>
+          <div class="phone-body" style="background: #F5F8F0;">
+            <div class="conv-messages">
+              <div class="conv-msg ai" style="background: #fff; color: #253122;">
+                Bonjour Emma! Comment tu t'appelles? &#x1F60A;
+              </div>
+              <div class="conv-msg user" style="background: #006EB8;">
+                Je m'appelle Emma!
+              </div>
+              <div class="conv-msg ai" style="background: #fff; color: #253122;">
+                Tr&egrave;s bien! Et tu as quel &acirc;ge?
+              </div>
+              <div class="conv-msg user" style="background: #006EB8;">
+                J'ai dix ans.
+              </div>
+              <div class="conv-feedback" style="background: #96D1AA40; color: #3a7a50;">
+                &#10003; Great pronunciation! &quot;dix&quot; = perfect
+              </div>
+              <div class="conv-msg ai" style="background: #fff; color: #253122;">
+                Super! Tu habites o&ugrave;?
+              </div>
+            </div>
+
+            <div class="waveform">
+              <div class="bar" style="background:#006EB8; animation-delay:0s; height:12px;"></div>
+              <div class="bar" style="background:#96D1AA; animation-delay:0.1s; height:20px;"></div>
+              <div class="bar" style="background:#F8ED43; animation-delay:0.2s; height:28px;"></div>
+              <div class="bar" style="background:#AE5224; animation-delay:0.3s; height:16px;"></div>
+              <div class="bar" style="background:#006EB8; animation-delay:0.4s; height:24px;"></div>
+              <div class="bar" style="background:#96D1AA; animation-delay:0.15s; height:10px;"></div>
+              <div class="bar" style="background:#F8ED43; animation-delay:0.25s; height:18px;"></div>
+              <div class="bar" style="background:#AE5224; animation-delay:0.35s; height:26px;"></div>
+            </div>
+
+            <div style="text-align:center;">
+              <div class="talk-btn" style="background: #006EB8; width:64px; height:64px;">
+                <svg viewBox="0 0 24 24" style="width:28px; height:28px;"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+              </div>
+              <div style="font-size:11px; color:#999; font-weight:600; margin-top:4px;">Tap to speak</div>
+            </div>
+
+            <div style="display:flex; gap:6px; margin-top:12px; justify-content:center;">
+              <span class="skill-pill" style="background:#006EB820; color:#005a96;">Listening +2</span>
+              <span class="skill-pill" style="background:#F8ED4340; color:#8a7e10;">Speaking +3</span>
+            </div>
+          </div>
+          <div class="phone-home-indicator" style="background: #F5F8F0;"><div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRESS SCREEN -->
+    <div class="mockup-col">
+      <div class="screen-label">DELF Progress</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar" style="background: #F5F8F0; color: #253122;">
+            <span>9:41</span><span style="font-weight:800;">Progress</span><span></span>
+          </div>
+          <div class="phone-body" style="background: #F5F8F0;">
+            <div style="text-align:center; margin-bottom:20px;">
+              <div style="width:120px; height:120px; border-radius:50%; border:8px solid #006EB8; margin:0 auto 8px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fff;">
+                <div style="font-size:32px; font-weight:900; color:#253122;">62</div>
+                <div style="font-size:10px; font-weight:700; color:#999;">/ 100</div>
+              </div>
+              <div style="font-size:14px; font-weight:800; color:#253122;">DELF A1 Readiness</div>
+              <div style="font-size:11px; color:#999; font-weight:600;">Keep going! You're making progress.</div>
+            </div>
+
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#006EB8;">
+                <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Listening</span><span style="color:#006EB8;">18/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:72%; background:#006EB8;"></div></div>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#96D1AA;">
+                <svg viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Reading</span><span style="color:#4a9068;">15/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:60%; background:#96D1AA;"></div></div>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#AE5224;">
+                <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Writing</span><span style="color:#AE5224;">14/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:56%; background:#AE5224;"></div></div>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#F8ED43;">
+                <svg viewBox="0 0 24 24" fill="#253122"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 7h2v-2c3.93-.5 7-3.88 7-7.95h-2c0 3.31-2.69 6-6 6s-6-2.69-6-6H4c0 4.07 3.07 7.45 7 7.95V21z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Speaking</span><span style="color:#a09420;">15/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:60%; background:#F8ED43;"></div></div>
+              </div>
+            </div>
+
+            <div style="background:#fff; border-radius:14px; padding:14px; margin-top:16px;">
+              <div style="font-size:12px; font-weight:800; color:#253122; margin-bottom:6px;">This week</div>
+              <div style="display:flex; gap:4px; align-items:flex-end; height:60px;">
+                <div style="flex:1; background:#006EB830; border-radius:4px; height:40%;"></div>
+                <div style="flex:1; background:#006EB830; border-radius:4px; height:60%;"></div>
+                <div style="flex:1; background:#006EB830; border-radius:4px; height:80%;"></div>
+                <div style="flex:1; background:#006EB830; border-radius:4px; height:50%;"></div>
+                <div style="flex:1; background:#006EB830; border-radius:4px; height:90%;"></div>
+                <div style="flex:1; background:#006EB830; border-radius:4px; height:70%;"></div>
+                <div style="flex:1; background:#006EB8; border-radius:4px; height:100%;"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:9px; color:#999; font-weight:700; margin-top:4px;">
+                <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span style="color:#006EB8;">S</span>
+              </div>
+            </div>
+          </div>
+          <div class="phone-bottom-nav">
+            <div class="nav-item" style="color: #aaa;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              <span>Home</span>
+            </div>
+            <div class="nav-item" style="color: #aaa;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+              <span>Talk</span>
+            </div>
+            <div class="nav-item active" style="color: #006EB8;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              <span>Progress</span>
+            </div>
+            <div class="nav-item" style="color: #aaa;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span>Profile</span>
+            </div>
+          </div>
+          <div class="phone-home-indicator" style="background: #F5F8F0;"><div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-notes">
+    <div class="note-block">
+      <h4>Best for</h4>
+      <p>Ages 8&ndash;18. Calmer, more focus-friendly. The blue/green combination feels trustworthy and educational. Ideal for longer AI conversation sessions without visual fatigue.</p>
+    </div>
+    <div class="note-block">
+      <h4>AI Personality Match</h4>
+      <p>Gentle, patient, wise tutor. The garden palette gives the AI a calm, nature-inspired feel &mdash; like learning under a tree. Encourages focus and deep practice.</p>
+    </div>
+    <div class="note-block">
+      <h4>Typography</h4>
+      <p>Nunito 800 for headings. Deep Forest text (#253122) on Soft Sage (#F5F8F0). Blue primary has excellent readability. The yellow needs careful use &mdash; low contrast on light backgrounds.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><hr></div>
+
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PALETTE C: CIRQUE DU RENARD -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="palette-section" id="cirque">
+  <div class="palette-header-bar">
+    <div class="palette-letter" style="background: #DD4027;">C</div>
+    <div class="palette-meta">
+      <h2>Cirque du Renard</h2>
+      <div class="tagline">Bold &amp; Playful &mdash; like a Parisian circus spectacle</div>
+      <span class="wada-ref">Sanzo Wada #164 + #313</span>
+    </div>
+  </div>
+
+  <div class="mood-grid">
+    <div>
+      <div class="swatch-strip">
+        <div class="swatch" style="background:#DD4027;"><span class="name" style="color:#fff;">Red Orange</span><span class="hex" style="color:#fff;">#DD4027</span></div>
+        <div class="swatch" style="background:#FCB315;"><span class="name" style="color:#2D2926;">Orange Yellow</span><span class="hex" style="color:#2D2926;">#FCB315</span></div>
+        <div class="swatch" style="background:#4F4086;"><span class="name" style="color:#fff;">Violet</span><span class="hex" style="color:#fff;">#4F4086</span></div>
+        <div class="swatch" style="background:#1A7444;"><span class="name" style="color:#fff;">Diamine Green</span><span class="hex" style="color:#fff;">#1A7444</span></div>
+      </div>
+      <div style="display:flex; gap:6px; margin-top:12px;">
+        <div style="flex:1; height:40px; border-radius:10px; background:#FFF5F0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#2D2926; border: 1px solid #f0e0d8;">BG #FFF5F0</div>
+        <div style="flex:1; height:40px; border-radius:10px; background:#2D2926; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#fff;">Text #2D2926</div>
+      </div>
+    </div>
+    <div class="mood-keywords">
+      <h3>Mood &amp; Vibe</h3>
+      <div class="keywords">
+        <span class="kw" style="background:#DD402720; color:#b83320;">Dramatic</span>
+        <span class="kw" style="background:#FCB31520; color:#b8850a;">Exciting</span>
+        <span class="kw" style="background:#4F408620; color:#3d326a;">Mysterious</span>
+        <span class="kw" style="background:#1A744420; color:#145a34;">Adventurous</span>
+        <span class="kw" style="background:#DD402720; color:#b83320;">Bold</span>
+        <span class="kw" style="background:#FCB31520; color:#b8850a;">Fun</span>
+        <span class="kw" style="background:#4F408620; color:#3d326a;">Magical</span>
+        <span class="kw" style="background:#1A744420; color:#145a34;">Brave</span>
+      </div>
+      <div class="skill-pills">
+        <span class="skill-pill" style="background:#4F4086; color:#fff;">Listening</span>
+        <span class="skill-pill" style="background:#FCB315; color:#2D2926;">Reading</span>
+        <span class="skill-pill" style="background:#1A7444; color:#fff;">Writing</span>
+        <span class="skill-pill" style="background:#DD4027; color:#fff;">Speaking</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup-row">
+    <!-- HOME SCREEN -->
+    <div class="mockup-col">
+      <div class="screen-label">Home Hub</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar" style="background: #FFF5F0; color: #2D2926;">
+            <span>9:41</span><span style="opacity:0.5">LPF</span>
+          </div>
+          <div class="phone-body" style="background: #FFF5F0;">
+            <div class="streak-badge" style="color: #DD4027;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#DD4027"><path d="M12 23c-4.97 0-9-3.13-9-7 0-2.38 1.34-4.33 3.5-5.5-.28 1.5.2 3 1.5 4 0-4 3-7 6-9 .5 2 1.5 3.5 3 4.5C19 11.5 21 13.5 21 16c0 3.87-4.03 7-9 7z"/></svg>
+              12 day streak
+            </div>
+            <div class="greeting" style="color: #2D2926;">Bonjour, Emma!</div>
+            <div class="greeting-sub" style="color: #6b6462;">Ready to practice French?</div>
+
+            <div class="delf-meter" style="border: 1px solid rgba(221,64,39,0.2);">
+              <div class="label" style="color: #DD4027;">DELF A1 Readiness</div>
+              <div class="bar-bg"><div class="bar-fill" style="width: 62%; background: linear-gradient(90deg, #FCB315, #DD4027);"></div></div>
+              <div class="score" style="color: #2D2926;">62 / 100</div>
+            </div>
+
+            <div class="talk-btn" style="background: #DD4027;">
+              <div class="pulse-ring" style="color: #DD4027;"></div>
+              <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 7h2v-2c3.93-.5 7-3.88 7-7.95h-2c0 3.31-2.69 6-6 6s-6-2.69-6-6H4c0 4.07 3.07 7.45 7 7.95V21z"/></svg>
+            </div>
+            <div class="talk-btn-label" style="color: #DD4027;">Talk to R&eacute;mi</div>
+
+            <div class="mode-card">
+              <div class="mode-icon" style="background: #4F4086;">
+                <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              </div>
+              <div class="mode-info">
+                <div class="mode-name" style="color: #2D2926;">Listen &amp; Respond</div>
+                <div class="mode-desc">Hear French, tap or speak answers</div>
+              </div>
+            </div>
+            <div class="mode-card">
+              <div class="mode-icon" style="background: #1A7444;">
+                <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+              </div>
+              <div class="mode-info">
+                <div class="mode-name" style="color: #2D2926;">Writing Exercises</div>
+                <div class="mode-desc">Forms, postcards &amp; messages</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-bottom-nav">
+            <div class="nav-item active" style="color: #DD4027;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              <span>Home</span>
+            </div>
+            <div class="nav-item" style="color: #888;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+              <span>Talk</span>
+            </div>
+            <div class="nav-item" style="color: #888;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              <span>Progress</span>
+            </div>
+            <div class="nav-item" style="color: #888;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span>Profile</span>
+            </div>
+          </div>
+          <div class="phone-home-indicator" style="background: #FFF5F0;"><div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONVERSATION SCREEN -->
+    <div class="mockup-col">
+      <div class="screen-label">AI Conversation</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar" style="background: #4F4086; color: #fff;">
+            <span style="font-size:11px;">&larr; Back</span><span style="font-weight:800;">Conversation</span><span style="opacity:0.5; font-size:11px;">2:34</span>
+          </div>
+          <div class="phone-body" style="background: #FFF5F0;">
+            <div class="conv-messages">
+              <div class="conv-msg ai" style="background: #fff; color: #2D2926;">
+                Bonjour Emma! Comment tu t'appelles? &#x1F60A;
+              </div>
+              <div class="conv-msg user" style="background: #DD4027;">
+                Je m'appelle Emma!
+              </div>
+              <div class="conv-msg ai" style="background: #fff; color: #2D2926;">
+                Tr&egrave;s bien! Et tu as quel &acirc;ge?
+              </div>
+              <div class="conv-msg user" style="background: #DD4027;">
+                J'ai dix ans.
+              </div>
+              <div class="conv-feedback" style="background: #1A744420; color: #145a34;">
+                &#10003; Great pronunciation! &quot;dix&quot; = perfect
+              </div>
+              <div class="conv-msg ai" style="background: #fff; color: #2D2926;">
+                Super! Tu habites o&ugrave;?
+              </div>
+            </div>
+
+            <div class="waveform">
+              <div class="bar" style="background:#DD4027; animation-delay:0s; height:12px;"></div>
+              <div class="bar" style="background:#FCB315; animation-delay:0.1s; height:20px;"></div>
+              <div class="bar" style="background:#4F4086; animation-delay:0.2s; height:28px;"></div>
+              <div class="bar" style="background:#1A7444; animation-delay:0.3s; height:16px;"></div>
+              <div class="bar" style="background:#DD4027; animation-delay:0.4s; height:24px;"></div>
+              <div class="bar" style="background:#FCB315; animation-delay:0.15s; height:10px;"></div>
+              <div class="bar" style="background:#4F4086; animation-delay:0.25s; height:18px;"></div>
+              <div class="bar" style="background:#1A7444; animation-delay:0.35s; height:26px;"></div>
+            </div>
+
+            <div style="text-align:center;">
+              <div class="talk-btn" style="background: #DD4027; width:64px; height:64px;">
+                <svg viewBox="0 0 24 24" style="width:28px; height:28px;"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+              </div>
+              <div style="font-size:11px; color:#999; font-weight:600; margin-top:4px;">Tap to speak</div>
+            </div>
+
+            <div style="display:flex; gap:6px; margin-top:12px; justify-content:center;">
+              <span class="skill-pill" style="background:#4F408620; color:#3d326a;">Listening +2</span>
+              <span class="skill-pill" style="background:#DD402720; color:#b83320;">Speaking +3</span>
+            </div>
+          </div>
+          <div class="phone-home-indicator" style="background: #FFF5F0;"><div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRESS SCREEN -->
+    <div class="mockup-col">
+      <div class="screen-label">DELF Progress</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar" style="background: #FFF5F0; color: #2D2926;">
+            <span>9:41</span><span style="font-weight:800;">Progress</span><span></span>
+          </div>
+          <div class="phone-body" style="background: #FFF5F0;">
+            <div style="text-align:center; margin-bottom:20px;">
+              <div style="width:120px; height:120px; border-radius:50%; border:8px solid #DD4027; margin:0 auto 8px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fff;">
+                <div style="font-size:32px; font-weight:900; color:#2D2926;">62</div>
+                <div style="font-size:10px; font-weight:700; color:#999;">/ 100</div>
+              </div>
+              <div style="font-size:14px; font-weight:800; color:#2D2926;">DELF A1 Readiness</div>
+              <div style="font-size:11px; color:#999; font-weight:600;">Keep going! You're making progress.</div>
+            </div>
+
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#4F4086;">
+                <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Listening</span><span style="color:#4F4086;">18/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:72%; background:#4F4086;"></div></div>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#FCB315;">
+                <svg viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Reading</span><span style="color:#b8850a;">15/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:60%; background:#FCB315;"></div></div>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#1A7444;">
+                <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Writing</span><span style="color:#1A7444;">14/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:56%; background:#1A7444;"></div></div>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#DD4027;">
+                <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 7h2v-2c3.93-.5 7-3.88 7-7.95h-2c0 3.31-2.69 6-6 6s-6-2.69-6-6H4c0 4.07 3.07 7.45 7 7.95V21z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Speaking</span><span style="color:#DD4027;">15/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:60%; background:#DD4027;"></div></div>
+              </div>
+            </div>
+
+            <div style="background:#fff; border-radius:14px; padding:14px; margin-top:16px;">
+              <div style="font-size:12px; font-weight:800; color:#2D2926; margin-bottom:6px;">This week</div>
+              <div style="display:flex; gap:4px; align-items:flex-end; height:60px;">
+                <div style="flex:1; background:#DD402730; border-radius:4px; height:40%;"></div>
+                <div style="flex:1; background:#DD402730; border-radius:4px; height:60%;"></div>
+                <div style="flex:1; background:#DD402730; border-radius:4px; height:80%;"></div>
+                <div style="flex:1; background:#DD402730; border-radius:4px; height:50%;"></div>
+                <div style="flex:1; background:#DD402730; border-radius:4px; height:90%;"></div>
+                <div style="flex:1; background:#DD402730; border-radius:4px; height:70%;"></div>
+                <div style="flex:1; background:#DD4027; border-radius:4px; height:100%;"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:9px; color:#999; font-weight:700; margin-top:4px;">
+                <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span style="color:#DD4027;">S</span>
+              </div>
+            </div>
+          </div>
+          <div class="phone-bottom-nav">
+            <div class="nav-item" style="color: #888;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              <span>Home</span>
+            </div>
+            <div class="nav-item" style="color: #888;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+              <span>Talk</span>
+            </div>
+            <div class="nav-item active" style="color: #DD4027;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              <span>Progress</span>
+            </div>
+            <div class="nav-item" style="color: #888;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span>Profile</span>
+            </div>
+          </div>
+          <div class="phone-home-indicator" style="background: #FFF5F0;"><div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-notes">
+    <div class="note-block">
+      <h4>Best for</h4>
+      <p>Ages 8&ndash;12. Maximum visual impact and engagement. The red-orange grabs attention instantly. Violet adds mystery/magic. Feels like a game more than a study tool.</p>
+    </div>
+    <div class="note-block">
+      <h4>AI Personality Match</h4>
+      <p>Theatrical, animated, expressive tutor. The bold palette makes the AI feel like a performance &mdash; dramatic encouragement, celebration of every achievement, high energy.</p>
+    </div>
+    <div class="note-block">
+      <h4>Typography</h4>
+      <p>Nunito 900 for headings. High contrast throughout. The strong primaries work well for CTAs and interactive elements. Violet provides elegant differentiation.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><hr></div>
+
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- PALETTE D: LES BONBONS -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="palette-section" id="bonbons">
+  <div class="palette-header-bar">
+    <div class="palette-letter" style="background: #F37F94;">D</div>
+    <div class="palette-meta">
+      <h2>Les Bonbons</h2>
+      <div class="tagline">Sweet &amp; Inviting &mdash; like a French p&acirc;tisserie</div>
+      <span class="wada-ref">Sanzo Wada #338 + #340</span>
+    </div>
+  </div>
+
+  <div class="mood-grid">
+    <div>
+      <div class="swatch-strip">
+        <div class="swatch" style="background:#F37F94;"><span class="name" style="color:#fff;">Eosine Pink</span><span class="hex" style="color:#fff;">#F37F94</span></div>
+        <div class="swatch" style="background:#FCB315;"><span class="name" style="color:#2D2926;">Orange Yellow</span><span class="hex" style="color:#2D2926;">#FCB315</span></div>
+        <div class="swatch" style="background:#099197;"><span class="name" style="color:#fff;">Green Blue</span><span class="hex" style="color:#fff;">#099197</span></div>
+        <div class="swatch" style="background:#A36AA5;"><span class="name" style="color:#fff;">Aconite Violet</span><span class="hex" style="color:#fff;">#A36AA5</span></div>
+      </div>
+      <div style="display:flex; gap:6px; margin-top:12px;">
+        <div style="flex:1; height:40px; border-radius:10px; background:#FFF5F2; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#2D2926; border: 1px solid #f0e0dd;">BG #FFF5F2</div>
+        <div style="flex:1; height:40px; border-radius:10px; background:#2D2926; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#fff;">Text #2D2926</div>
+      </div>
+    </div>
+    <div class="mood-keywords">
+      <h3>Mood &amp; Vibe</h3>
+      <div class="keywords">
+        <span class="kw" style="background:#F37F9420; color:#d0556a;">Sweet</span>
+        <span class="kw" style="background:#FCB31520; color:#b8850a;">Warm</span>
+        <span class="kw" style="background:#09919720; color:#077378;">Modern</span>
+        <span class="kw" style="background:#A36AA520; color:#8a5690;">Sophisticated</span>
+        <span class="kw" style="background:#F37F9420; color:#d0556a;">Approachable</span>
+        <span class="kw" style="background:#FCB31520; color:#b8850a;">Friendly</span>
+        <span class="kw" style="background:#09919720; color:#077378;">Fresh</span>
+        <span class="kw" style="background:#A36AA520; color:#8a5690;">Elegant</span>
+      </div>
+      <div class="skill-pills">
+        <span class="skill-pill" style="background:#099197; color:#fff;">Listening</span>
+        <span class="skill-pill" style="background:#FCB315; color:#2D2926;">Reading</span>
+        <span class="skill-pill" style="background:#A36AA5; color:#fff;">Writing</span>
+        <span class="skill-pill" style="background:#F37F94; color:#fff;">Speaking</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup-row">
+    <!-- HOME SCREEN -->
+    <div class="mockup-col">
+      <div class="screen-label">Home Hub</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar" style="background: #FFF5F2; color: #2D2926;">
+            <span>9:41</span><span style="opacity:0.5">LPF</span>
+          </div>
+          <div class="phone-body" style="background: #FFF5F2;">
+            <div class="streak-badge" style="color: #F37F94;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#F37F94"><path d="M12 23c-4.97 0-9-3.13-9-7 0-2.38 1.34-4.33 3.5-5.5-.28 1.5.2 3 1.5 4 0-4 3-7 6-9 .5 2 1.5 3.5 3 4.5C19 11.5 21 13.5 21 16c0 3.87-4.03 7-9 7z"/></svg>
+              12 day streak
+            </div>
+            <div class="greeting" style="color: #2D2926;">Bonjour, Emma!</div>
+            <div class="greeting-sub" style="color: #6b6462;">Ready to practice French?</div>
+
+            <div class="delf-meter" style="border: 1px solid rgba(243,127,148,0.3);">
+              <div class="label" style="color: #d0556a;">DELF A1 Readiness</div>
+              <div class="bar-bg"><div class="bar-fill" style="width: 62%; background: linear-gradient(90deg, #F37F94, #A36AA5);"></div></div>
+              <div class="score" style="color: #2D2926;">62 / 100</div>
+            </div>
+
+            <div class="talk-btn" style="background: linear-gradient(135deg, #F37F94, #A36AA5);">
+              <div class="pulse-ring" style="color: #F37F94;"></div>
+              <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 7h2v-2c3.93-.5 7-3.88 7-7.95h-2c0 3.31-2.69 6-6 6s-6-2.69-6-6H4c0 4.07 3.07 7.45 7 7.95V21z"/></svg>
+            </div>
+            <div class="talk-btn-label" style="color: #F37F94;">Talk to R&eacute;mi</div>
+
+            <div class="mode-card">
+              <div class="mode-icon" style="background: #099197;">
+                <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              </div>
+              <div class="mode-info">
+                <div class="mode-name" style="color: #2D2926;">Listen &amp; Respond</div>
+                <div class="mode-desc">Hear French, tap or speak answers</div>
+              </div>
+            </div>
+            <div class="mode-card">
+              <div class="mode-icon" style="background: #A36AA5;">
+                <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+              </div>
+              <div class="mode-info">
+                <div class="mode-name" style="color: #2D2926;">Writing Exercises</div>
+                <div class="mode-desc">Forms, postcards &amp; messages</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-bottom-nav">
+            <div class="nav-item active" style="color: #F37F94;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              <span>Home</span>
+            </div>
+            <div class="nav-item" style="color: #bbb;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+              <span>Talk</span>
+            </div>
+            <div class="nav-item" style="color: #bbb;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              <span>Progress</span>
+            </div>
+            <div class="nav-item" style="color: #bbb;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span>Profile</span>
+            </div>
+          </div>
+          <div class="phone-home-indicator" style="background: #FFF5F2;"><div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONVERSATION SCREEN -->
+    <div class="mockup-col">
+      <div class="screen-label">AI Conversation</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar" style="background: #099197; color: #fff;">
+            <span style="font-size:11px;">&larr; Back</span><span style="font-weight:800;">Conversation</span><span style="opacity:0.5; font-size:11px;">2:34</span>
+          </div>
+          <div class="phone-body" style="background: #FFF5F2;">
+            <div class="conv-messages">
+              <div class="conv-msg ai" style="background: #fff; color: #2D2926;">
+                Bonjour Emma! Comment tu t'appelles? &#x1F60A;
+              </div>
+              <div class="conv-msg user" style="background: linear-gradient(135deg, #F37F94, #A36AA5);">
+                Je m'appelle Emma!
+              </div>
+              <div class="conv-msg ai" style="background: #fff; color: #2D2926;">
+                Tr&egrave;s bien! Et tu as quel &acirc;ge?
+              </div>
+              <div class="conv-msg user" style="background: linear-gradient(135deg, #F37F94, #A36AA5);">
+                J'ai dix ans.
+              </div>
+              <div class="conv-feedback" style="background: #09919720; color: #077378;">
+                &#10003; Great pronunciation! &quot;dix&quot; = perfect
+              </div>
+              <div class="conv-msg ai" style="background: #fff; color: #2D2926;">
+                Super! Tu habites o&ugrave;?
+              </div>
+            </div>
+
+            <div class="waveform">
+              <div class="bar" style="background:#F37F94; animation-delay:0s; height:12px;"></div>
+              <div class="bar" style="background:#FCB315; animation-delay:0.1s; height:20px;"></div>
+              <div class="bar" style="background:#099197; animation-delay:0.2s; height:28px;"></div>
+              <div class="bar" style="background:#A36AA5; animation-delay:0.3s; height:16px;"></div>
+              <div class="bar" style="background:#F37F94; animation-delay:0.4s; height:24px;"></div>
+              <div class="bar" style="background:#FCB315; animation-delay:0.15s; height:10px;"></div>
+              <div class="bar" style="background:#099197; animation-delay:0.25s; height:18px;"></div>
+              <div class="bar" style="background:#A36AA5; animation-delay:0.35s; height:26px;"></div>
+            </div>
+
+            <div style="text-align:center;">
+              <div class="talk-btn" style="background: linear-gradient(135deg, #F37F94, #A36AA5); width:64px; height:64px;">
+                <svg viewBox="0 0 24 24" style="width:28px; height:28px;"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+              </div>
+              <div style="font-size:11px; color:#999; font-weight:600; margin-top:4px;">Tap to speak</div>
+            </div>
+
+            <div style="display:flex; gap:6px; margin-top:12px; justify-content:center;">
+              <span class="skill-pill" style="background:#09919720; color:#077378;">Listening +2</span>
+              <span class="skill-pill" style="background:#F37F9420; color:#d0556a;">Speaking +3</span>
+            </div>
+          </div>
+          <div class="phone-home-indicator" style="background: #FFF5F2;"><div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRESS SCREEN -->
+    <div class="mockup-col">
+      <div class="screen-label">DELF Progress</div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar" style="background: #FFF5F2; color: #2D2926;">
+            <span>9:41</span><span style="font-weight:800;">Progress</span><span></span>
+          </div>
+          <div class="phone-body" style="background: #FFF5F2;">
+            <div style="text-align:center; margin-bottom:20px;">
+              <div style="width:120px; height:120px; border-radius:50%; border:8px solid #F37F94; margin:0 auto 8px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:#fff;">
+                <div style="font-size:32px; font-weight:900; color:#2D2926;">62</div>
+                <div style="font-size:10px; font-weight:700; color:#999;">/ 100</div>
+              </div>
+              <div style="font-size:14px; font-weight:800; color:#2D2926;">DELF A1 Readiness</div>
+              <div style="font-size:11px; color:#999; font-weight:600;">Keep going! You're making progress.</div>
+            </div>
+
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#099197;">
+                <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Listening</span><span style="color:#099197;">18/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:72%; background:#099197;"></div></div>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#FCB315;">
+                <svg viewBox="0 0 24 24"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Reading</span><span style="color:#b8850a;">15/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:60%; background:#FCB315;"></div></div>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#A36AA5;">
+                <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Writing</span><span style="color:#A36AA5;">14/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:56%; background:#A36AA5;"></div></div>
+              </div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-icon" style="background:#F37F94;">
+                <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 7h2v-2c3.93-.5 7-3.88 7-7.95h-2c0 3.31-2.69 6-6 6s-6-2.69-6-6H4c0 4.07 3.07 7.45 7 7.95V21z"/></svg>
+              </div>
+              <div class="skill-bar-wrap">
+                <div class="skill-label"><span>Speaking</span><span style="color:#F37F94;">15/25</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" style="width:60%; background:#F37F94;"></div></div>
+              </div>
+            </div>
+
+            <div style="background:#fff; border-radius:14px; padding:14px; margin-top:16px;">
+              <div style="font-size:12px; font-weight:800; color:#2D2926; margin-bottom:6px;">This week</div>
+              <div style="display:flex; gap:4px; align-items:flex-end; height:60px;">
+                <div style="flex:1; background:#F37F9430; border-radius:4px; height:40%;"></div>
+                <div style="flex:1; background:#F37F9430; border-radius:4px; height:60%;"></div>
+                <div style="flex:1; background:#F37F9430; border-radius:4px; height:80%;"></div>
+                <div style="flex:1; background:#F37F9430; border-radius:4px; height:50%;"></div>
+                <div style="flex:1; background:#F37F9430; border-radius:4px; height:90%;"></div>
+                <div style="flex:1; background:#F37F9430; border-radius:4px; height:70%;"></div>
+                <div style="flex:1; background:#F37F94; border-radius:4px; height:100%;"></div>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:9px; color:#999; font-weight:700; margin-top:4px;">
+                <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span style="color:#F37F94;">S</span>
+              </div>
+            </div>
+          </div>
+          <div class="phone-bottom-nav">
+            <div class="nav-item" style="color: #bbb;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              <span>Home</span>
+            </div>
+            <div class="nav-item" style="color: #bbb;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+              <span>Talk</span>
+            </div>
+            <div class="nav-item active" style="color: #F37F94;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              <span>Progress</span>
+            </div>
+            <div class="nav-item" style="color: #bbb;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span>Profile</span>
+            </div>
+          </div>
+          <div class="phone-home-indicator" style="background: #FFF5F2;"><div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-notes">
+    <div class="note-block">
+      <h4>Best for</h4>
+      <p>Ages 11&ndash;18. Softer and more sophisticated. The pink-coral is warm without being intense. Teal counterbalances nicely. Feels modern and approachable &mdash; less "kiddy" for teens.</p>
+    </div>
+    <div class="note-block">
+      <h4>AI Personality Match</h4>
+      <p>Warm, supportive, stylish tutor. The candy palette makes the AI feel like a kind older sibling &mdash; encouraging without being childish. Perfect for the &ldquo;patient friend&rdquo; positioning.</p>
+    </div>
+    <div class="note-block">
+      <h4>Typography</h4>
+      <p>Nunito 700-800 for headings. The pink-to-violet gradient works beautifully for hero elements. Teal provides strong contrast for interactive affordances. Soft rose background is easy on the eyes.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- COMPARISON TABLE -->
+<!-- ══════════════════════════════════════════════ -->
+<div class="palette-section">
+  <div style="background:#fff; border-radius:20px; padding:32px; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    <h2 style="font-size:24px; font-weight:900; margin-bottom:4px;">Side-by-Side Comparison</h2>
+    <p style="font-size:14px; color:#888; margin-bottom:24px;">How each palette serves the AI-first experience</p>
+
+    <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse; font-size:13px;">
+        <thead>
+          <tr style="border-bottom:2px solid #eee;">
+            <th style="text-align:left; padding:12px 8px; font-weight:800; color:#999; font-size:11px; text-transform:uppercase; letter-spacing:0.5px;">Criteria</th>
+            <th style="text-align:center; padding:12px 8px;"><div style="width:32px; height:32px; border-radius:8px; background:#FCB315; margin:0 auto 4px; display:flex; align-items:center; justify-content:center; color:#2D2926; font-weight:900; font-size:14px;">A</div>Sunshine</th>
+            <th style="text-align:center; padding:12px 8px;"><div style="width:32px; height:32px; border-radius:8px; background:#006EB8; margin:0 auto 4px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:900; font-size:14px;">B</div>Jardin</th>
+            <th style="text-align:center; padding:12px 8px;"><div style="width:32px; height:32px; border-radius:8px; background:#DD4027; margin:0 auto 4px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:900; font-size:14px;">C</div>Cirque</th>
+            <th style="text-align:center; padding:12px 8px;"><div style="width:32px; height:32px; border-radius:8px; background:#F37F94; margin:0 auto 4px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:900; font-size:14px;">D</div>Bonbons</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f0f0f0;">
+            <td style="padding:10px 8px; font-weight:700;">Energy Level</td>
+            <td style="text-align:center; padding:10px 8px;">High</td>
+            <td style="text-align:center; padding:10px 8px;">Medium</td>
+            <td style="text-align:center; padding:10px 8px; font-weight:700; color:#DD4027;">Very High</td>
+            <td style="text-align:center; padding:10px 8px;">Medium</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f0f0;">
+            <td style="padding:10px 8px; font-weight:700;">Best Age Range</td>
+            <td style="text-align:center; padding:10px 8px; font-weight:700; color:#FCB315;">8&ndash;18</td>
+            <td style="text-align:center; padding:10px 8px;">8&ndash;18</td>
+            <td style="text-align:center; padding:10px 8px;">8&ndash;12</td>
+            <td style="text-align:center; padding:10px 8px;">11&ndash;18</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f0f0;">
+            <td style="padding:10px 8px; font-weight:700;">AI Conversation Feel</td>
+            <td style="text-align:center; padding:10px 8px;">Upbeat friend</td>
+            <td style="text-align:center; padding:10px 8px; font-weight:700; color:#006EB8;">Wise mentor</td>
+            <td style="text-align:center; padding:10px 8px;">Animated host</td>
+            <td style="text-align:center; padding:10px 8px;">Kind sibling</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f0f0;">
+            <td style="padding:10px 8px; font-weight:700;">Session Length Comfort</td>
+            <td style="text-align:center; padding:10px 8px;">Medium</td>
+            <td style="text-align:center; padding:10px 8px; font-weight:700; color:#006EB8;">Excellent</td>
+            <td style="text-align:center; padding:10px 8px;">Short bursts</td>
+            <td style="text-align:center; padding:10px 8px;">Good</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f0f0;">
+            <td style="padding:10px 8px; font-weight:700;">Focus / Study Feel</td>
+            <td style="text-align:center; padding:10px 8px;">Medium</td>
+            <td style="text-align:center; padding:10px 8px; font-weight:700; color:#006EB8;">High</td>
+            <td style="text-align:center; padding:10px 8px;">Low</td>
+            <td style="text-align:center; padding:10px 8px;">Medium</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f0f0;">
+            <td style="padding:10px 8px; font-weight:700;">Parent Trust Signal</td>
+            <td style="text-align:center; padding:10px 8px;">Good</td>
+            <td style="text-align:center; padding:10px 8px; font-weight:700; color:#006EB8;">Excellent</td>
+            <td style="text-align:center; padding:10px 8px;">Medium</td>
+            <td style="text-align:center; padding:10px 8px;">Good</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f0f0f0;">
+            <td style="padding:10px 8px; font-weight:700;">Kid Engagement / Fun</td>
+            <td style="text-align:center; padding:10px 8px;">High</td>
+            <td style="text-align:center; padding:10px 8px;">Medium</td>
+            <td style="text-align:center; padding:10px 8px; font-weight:700; color:#DD4027;">Very High</td>
+            <td style="text-align:center; padding:10px 8px;">High</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 8px; font-weight:700;">Competitor Differentiation</td>
+            <td style="text-align:center; padding:10px 8px; font-weight:700; color:#FCB315;">Excellent</td>
+            <td style="text-align:center; padding:10px 8px;">Good</td>
+            <td style="text-align:center; padding:10px 8px;">Good</td>
+            <td style="text-align:center; padding:10px 8px;">Very Good</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:24px; padding:20px; background:#FFF8ED; border-radius:14px; border-left:4px solid #FCB315;">
+      <div style="font-size:14px; font-weight:800; color:#2D2926; margin-bottom:4px;">Recommendation for AI-First</div>
+      <p style="font-size:13px; color:#555; font-weight:600; margin:0;">
+        <strong>Option A (Paris Sunshine)</strong> remains the strongest all-around choice for the widest age range and competitive differentiation.
+        <strong>Option B (Jardin)</strong> is the runner-up if longer AI conversation sessions are the priority &mdash; the calmer palette reduces visual fatigue during extended voice practice.
+        <strong>Option D (Les Bonbons)</strong> is ideal if the target skews 11&ndash;18 and the brand wants a more modern, premium feel.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="page-footer">
+  <p>Le Petit Fran&ccedil;ais &bull; AI-First Mood Board &bull; Palettes inspired by Sanzo Wada</p>
+  <p style="margin-top:4px;">Discovery Phase &bull; March 2026</p>
+</div>
+
+</body>
+</html>
